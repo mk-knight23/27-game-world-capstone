@@ -3,11 +3,11 @@
 ✨ Professional Repository Showcase Template
 
 ## Live Deployments
+- Netlify: https://12-world-capstone-game-mkazi.netlify.app
+- GitHub Pages: https://mk-knight23.github.io/12-world-capstone-game/
 
-- **GitHub Pages:** https://mk-knight23.github.io/12-world-capstone-game/
-- **Vercel:** https://12-world-capstone-game.vercel.app
-
-Status: 🟡 GH Pages Live | Vercel Pending (Daily Limit)
+Status: 🟢 Live
+Last Updated: 2026-01-21T14:12:00+05:30
 
 ## Features
 - 📱 Mobile Responsive
