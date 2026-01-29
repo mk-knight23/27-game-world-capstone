@@ -119,6 +119,13 @@ Deploy the single `index.html` file anywhere:
 
 ---
 
+### Live Demo
+- GitHub Pages: <https://mk-knight23.github.io/27-World-Capstone/>
+- Vercel: [Deploy your own](https://vercel.com/new)
+- Netlify: [Deploy your own](https://app.netlify.com/start)
+
+---
+
 ## 📝 Design Notes (V2)
 
 ### Intentional Quirk: The CRT Scanline Flicker
