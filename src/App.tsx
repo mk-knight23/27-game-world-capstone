@@ -21,6 +21,7 @@ function App() {
     const [selected, setSelected] = useState<Country | null>(null);
     const [selectedRegion, setSelectedRegion] = useState<string>('All');
     const [typedTitle, setTypedTitle] = useState('');
+    const [highlightedIndex, setHighlightedIndex] = useState(-1);
 
     // Typing effect for title
     useEffect(() => {
@@ -36,6 +37,29 @@ function App() {
         }, 100 + Math.random() * 50); // Randomized timing for human feel
         return () => clearInterval(timer);
     }, []);
+
+    // Keyboard navigation
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                setHighlightedIndex(prev => Math.min(prev + 1, filtered.length - 1));
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                setHighlightedIndex(prev => Math.max(prev - 1, 0));
+            } else if (e.key === 'Enter' && highlightedIndex >= 0) {
+                e.preventDefault();
+                setSelected(filtered[highlightedIndex]);
+                setHighlightedIndex(-1);
+            } else if (e.key === 'Escape') {
+                setSelected(null);
+                setHighlightedIndex(-1);
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [filtered, highlightedIndex]);
 
     useEffect(() => {
         axios.get('https://restcountries.com/v3.1/all')
@@ -69,6 +93,10 @@ function App() {
 
     return (
         <div className="h-screen bg-[#020617] text-cyan-500 font-mono overflow-hidden flex flex-col relative">
+            {/* Skip link for keyboard navigation */}
+            <a href="#main-content" className="skip-link">
+                Skip to main content
+            </a>
             <div className="scanline" />
 
             {/* Background Grid */}
@@ -97,32 +125,36 @@ function App() {
                 </div>
             </header>
 
-            <main className="flex-1 flex overflow-hidden">
+            <main id="main-content" className="flex-1 flex overflow-hidden">
                 {/* Sidebar / List */}
-                <div className="w-96 border-r border-cyan-500/30 bg-black/20 backdrop-blur-sm flex flex-col z-40">
+                <div className="w-96 border-r border-cyan-500/30 bg-black/20 backdrop-blur-sm flex flex-col z-40" role="complementary" aria-label="Country list">
                     <div className="p-6 border-b border-cyan-500/20">
                         <div className="relative mb-4">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 opacity-50" />
+                            <label htmlFor="search-input" className="sr-only">Search countries</label>
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 opacity-50" aria-hidden="true" />
                             <input
+                                id="search-input"
                                 type="text"
                                 placeholder="PROBE ENTITY NAME..."
                                 className="w-full bg-cyan-500/5 border border-cyan-500/30 rounded-lg py-3 pl-10 pr-4 text-xs font-bold uppercase tracking-widest focus:outline-none focus:border-cyan-500/60 placeholder:text-cyan-500/30"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
+                                aria-label="Search countries by name"
                             />
                         </div>
 
                         {/* Region Filter */}
-                        <div className="space-y-2">
+                        <div className="space-y-2" role="group" aria-label="Region filter">
                             <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest opacity-60">
-                                <Database className="w-3 h-3" />
+                                <Database className="w-3 h-3" aria-hidden="true" />
                                 Filter by Region
                             </div>
-                            <div className="flex flex-wrap gap-2">
+                            <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Select region">
                                 {regions.map(region => (
                                     <button
                                         key={region}
                                         onClick={() => setSelectedRegion(region)}
+                                        aria-pressed={selectedRegion === region}
                                         className={`glitch-hover px-3 py-1 text-[10px] font-black uppercase tracking-wider rounded transition-all ${
                                             selectedRegion === region
                                                 ? 'bg-cyan-500 text-black shadow-lg shadow-cyan-500/50'
@@ -140,11 +172,15 @@ function App() {
                         {loading ? (
                             <div className="p-10 text-center animate-pulse text-xs font-black uppercase tracking-widest">Accessing Satellite Feed...</div>
                         ) : (
-                            filtered.map(c => (
+                            filtered.map((c, index) => (
                                 <button
                                     key={c.cca3}
                                     onClick={() => setSelected(c)}
-                                    className={`glitch-hover w-full p-6 border-b border-cyan-500/10 text-left transition-all hover:bg-cyan-500/5 group flex items-center justify-between ${selected?.cca3 === c.cca3 ? 'bg-cyan-500/10 border-r-4 border-r-cyan-500' : ''}`}
+                                    className={`glitch-hover w-full p-6 border-b border-cyan-500/10 text-left transition-all hover:bg-cyan-500/5 group flex items-center justify-between ${
+                                        selected?.cca3 === c.cca3 ? 'bg-cyan-500/10 border-r-4 border-r-cyan-500' : ''
+                                    } ${
+                                        highlightedIndex === index ? 'bg-cyan-500/20 border-l-4 border-l-cyan-400' : ''
+                                    }`}
                                 >
                                     <div>
                                         <h3 className="text-sm font-black uppercase tracking-tight group-hover:text-white transition-colors">{c.name.common}</h3>
