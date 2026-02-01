@@ -23,9 +23,8 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mk-knight23/12-world-capstone-game.git"
+    "url": "git+https://github.com/mk-knight23/27-game-world-net.git"
   },
-  "homepage": "https://mk-knight23.github.io/12-world-capstone-game/",
   "dependencies": {
     "axios": "^1.13.3",
     "clsx": "^2.1.1",
