@@ -4,6 +4,17 @@
 
 A premium geographic data analyzer with a Matrix-green cyberpunk aesthetic. Browse countries, analyze statistics, and explore nations through a high-precision digital terminal built with React 19, Vite 6, and Tailwind CSS v4.
 
+---
+
+## 🎮 Live Demos
+
+| Platform | URL |
+|----------|-----|
+| **Vercel** | [27-game-world-net.vercel.app](https://27-game-world-net.vercel.app) |
+| **Render** | [two7-game-world-net.onrender.com](https://two7-game-world-net.onrender.com) |
+
+---
+
 ## 🌟 Theme: Cyberpunk Data Terminal
 
 Immerse yourself in a high-tech digital world:
