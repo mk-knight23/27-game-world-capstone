@@ -1,7 +1,7 @@
 {
-  "name": "12-world-capstone-game",
+  "name": "27-game-world-net",
   "private": false,
-  "version": "2.1.0",
+  "version": "5.0.0",
   "description": "Premium cyberpunk World Analyzer modernized with React 19, Vite 6, and Tailwind CSS v4.",
   "type": "module",
   "scripts": {

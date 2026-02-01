@@ -1,8 +1,8 @@
-# WORLD_NET // World Data Analyzer
+# 27-game-world-net
 
-> **Enter the Matrix. Explore global data through the digital realm.** 🟢
+> **Orbital Link Established. Accessing Geopolitical Database...** 🟢
 
-A modern geographic data terminal with a cyberpunk aesthetic. Browse countries, analyze statistics, and explore nations through a futuristic hacker interface built with React 19, Vite 6, and Tailwind CSS v4.
+A premium geographic data analyzer with a Matrix-green cyberpunk aesthetic. Browse countries, analyze statistics, and explore nations through a high-precision digital terminal built with React 19, Vite 6, and Tailwind CSS v4.
 
 ## 🌟 Theme: Cyberpunk Data Terminal
 

@@ -1,26 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WORLD_NET // Matrix Data Terminal</title>
+    <title>WORLD_NET // Accessing Mainframe</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         :root {
             --matrix-green: #00ff41;
-            --matrix-dark: #003b00;
-            --matrix-bg: #0d0208;
-            --matrix-glow: rgba(0, 255, 65, 0.5);
-            --terminal-bg: #000a00;
+            --matrix-dark: #001a00;
+            --matrix-bg: #000000;
+            --matrix-glow: rgba(0, 255, 65, 0.4);
+            --terminal-bg: #000500;
+            --accent: #00FF41;
         }
 
         body {
             background: var(--matrix-bg);
             color: var(--matrix-green);
-            font-family: 'Courier New', 'Consolas', monospace;
+            font-family: 'Fira Sans', sans-serif;
             height: 100vh;
             overflow: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        .font-mono {
+            font-family: 'Fira Code', monospace;
         }
 
         /* === DIGITAL RAIN CANVAS === */
@@ -41,7 +56,7 @@
             display: flex;
             flex-direction: column;
             height: 100vh;
-            background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.95) 100%);
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.95) 100%);
         }
 
         /* === SCANLINE EFFECT === */
@@ -53,13 +68,11 @@
             height: 100%;
             pointer-events: none;
             z-index: 1000;
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(0, 0, 0, 0.15),
-                rgba(0, 0, 0, 0.15) 1px,
-                transparent 1px,
-                transparent 2px
-            );
+            background: repeating-linear-gradient(0deg,
+                    rgba(0, 0, 0, 0.15),
+                    rgba(0, 0, 0, 0.15) 1px,
+                    transparent 1px,
+                    transparent 2px);
         }
 
         /* === CRT EFFECT === */
@@ -71,7 +84,7 @@
             height: 100%;
             pointer-events: none;
             z-index: 999;
-            background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.4) 100%);
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
         }
 
         /* === HEADER === */
@@ -102,8 +115,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 5px var(--matrix-green); }
-            50% { box-shadow: 0 0 20px var(--matrix-green), 0 0 30px var(--matrix-green); }
+
+            0%,
+            100% {
+                box-shadow: 0 0 5px var(--matrix-green);
+            }
+
+            50% {
+                box-shadow: 0 0 20px var(--matrix-green), 0 0 30px var(--matrix-green);
+            }
         }
 
         .logo h1 {
@@ -126,7 +146,9 @@
         }
 
         @media (min-width: 768px) {
-            .system-status { display: flex; }
+            .system-status {
+                display: flex;
+            }
         }
 
         .blink {
@@ -134,8 +156,16 @@
         }
 
         @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
+
+            0%,
+            50% {
+                opacity: 1;
+            }
+
+            51%,
+            100% {
+                opacity: 0;
+            }
         }
 
         /* === MAIN LAYOUT === */
@@ -155,7 +185,9 @@
         }
 
         @media (min-width: 768px) {
-            .sidebar { display: flex; }
+            .sidebar {
+                display: flex;
+            }
         }
 
         .search-box {
@@ -334,8 +366,13 @@
         }
 
         @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .content-empty h2 {
@@ -365,8 +402,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .detail-header {
@@ -512,10 +556,21 @@
             margin-bottom: 0.25rem;
         }
 
-        .terminal-line.success { color: var(--matrix-green); }
-        .terminal-line.warning { color: #ffff00; }
-        .terminal-line.error { color: #ff0000; }
-        .terminal-line.info { color: #00ffff; }
+        .terminal-line.success {
+            color: var(--matrix-green);
+        }
+
+        .terminal-line.warning {
+            color: #ffff00;
+        }
+
+        .terminal-line.error {
+            color: #ff0000;
+        }
+
+        .terminal-line.info {
+            color: #00ffff;
+        }
 
         /* === FOOTER === */
         .footer {
@@ -634,13 +689,26 @@
 
         /* === RESPONSIVE === */
         @media (max-width: 640px) {
-            .detail-header { flex-direction: column; }
-            .flag-container { width: 100%; height: 100px; }
-            .detail-title h2 { font-size: 1.5rem; }
-            .content { padding: 1rem; }
+            .detail-header {
+                flex-direction: column;
+            }
+
+            .flag-container {
+                width: 100%;
+                height: 100px;
+            }
+
+            .detail-title h2 {
+                font-size: 1.5rem;
+            }
+
+            .content {
+                padding: 1rem;
+            }
         }
     </style>
 </head>
+
 <body>
     <canvas id="matrix-rain"></canvas>
     <div class="scanline"></div>
@@ -650,10 +718,12 @@
         <header class="header">
             <div class="logo">
                 <div class="logo-icon">
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M2 12h20"/>
-                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"
+                        viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M2 12h20" />
+                        <path
+                            d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                     </svg>
                 </div>
                 <div>
@@ -696,9 +766,10 @@
             <section class="content">
                 <div class="content-empty" id="content-empty">
                     <svg fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M2 12h20"/>
-                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M2 12h20" />
+                        <path
+                            d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                     </svg>
                     <h2>AWAITING_INPUT</h2>
                     <p>Select an entity from the database to initiate visualization protocol.</p>
@@ -714,7 +785,8 @@
                             <div class="tags">
                                 <span class="tag" id="detail-region">REGION</span>
                                 <span class="tag" id="detail-capital">CAPITAL</span>
-                                <span class="tag" id="detail-code" style="cursor:pointer" onclick="toggleFavorite()">★ SAVE</span>
+                                <span class="tag" id="detail-code" style="cursor:pointer" onclick="toggleFavorite()">★
+                                    SAVE</span>
                             </div>
                         </div>
                     </div>
@@ -740,8 +812,9 @@
 
                     <div class="comparison">
                         <h3>
-                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path d="M18 20V10M12 20V4M6 20v-6"/>
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path d="M18 20V10M12 20V4M6 20v-6" />
                             </svg>
                             COMPARISON_MATRIX
                         </h3>
@@ -991,7 +1064,7 @@
             recentList.innerHTML = recentHistory.map(code => {
                 const country = countries.find(c => c.cca3 === code);
                 if (!country) return '';
-                return `<div class="recent-chip" onclick="selectCountry('${code}')">${country.name.common.substring(0,8).toUpperCase()}</div>`;
+                return `<div class="recent-chip" onclick="selectCountry('${code}')">${country.name.common.substring(0, 8).toUpperCase()}</div>`;
             }).join('');
         }
 
@@ -1153,4 +1226,5 @@ Generated by WORLD_NET Terminal
         addTerminalLine('Type to search. Click entity to view details.', 'info');
     </script>
 </body>
+
 </html>
